@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -13,14 +15,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        Label label = new Label("Hello, JavaFX ");
-        Scene scene = new Scene(new StackPane(label), 640, 480);
+        MainView mainView = new MainView();
+        Scene scene = new Scene(mainView, Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
-
+    public static void main(String[] args) { launch(); }
 }
