@@ -81,6 +81,14 @@ public class Board extends Pane {
             currentHex = stack.get(stack.size() - 1);
             stack.remove(stack.size() - 1); }
 
+        else if (unvisited.size() > 0) {
+            currentHex.setState(HexState.FINISHED);
+            currentHex = unvisited.get(random.nextInt(unvisited.size()));
+            unvisited.remove(currentHex);
+        }
+        else {
+            currentHex.setState(HexState.FINISHED);
+        }
         System.out.println(unvisited.size() + " " + stack.size());
     }
 

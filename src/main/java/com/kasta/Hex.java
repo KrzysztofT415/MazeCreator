@@ -57,7 +57,7 @@ public class Hex extends Polygon {
         //Calculating hex edges
         for (int i = 0; i < 6; ++i) {
             edges[i] = new Line(corners[i].getX(), corners[i].getY(), corners[(i + 1) % 6].getX(), corners[(i + 1) % 6].getY());
-            edges[i].setStrokeWidth(2);
+            edges[i].setStrokeWidth(1);
             edges[i].setStroke(Color.rgb(87,72,56)); }
 
         state = HexState.EMPTY;
