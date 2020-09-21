@@ -1,4 +1,4 @@
-package com.kasta;
+package com.kasta.model;
 
 import javafx.scene.paint.Color;
 

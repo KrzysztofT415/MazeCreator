@@ -1,27 +1,34 @@
-package com.kasta;
+package com.kasta.mazegen;
 
-import javafx.event.EventHandler;
+import com.kasta.model.Board;
+import com.kasta.model.HexState;
+import com.kasta.model.algorithms.KruskalsAlgorithm;
+import com.kasta.model.algorithms.RecursiveBacktrackingAlgorithm;
+import com.kasta.model.Visualization;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 
 public class MainView extends VBox {
 
     private final Toolbar toolbar;
     private final Board board;
-    private InfoBar infoBar;
+    private final InfoBar infoBar;
+
+    private Visualization visualization;
 
     private HexState drawMode;
 
     public MainView() {
 
         this.toolbar = new Toolbar(this);
-        this.board = new Board();
+        this.board = new Board(this);
         this.board.addEventFilter(MouseEvent.DRAG_DETECTED , mouseEvent -> {
-            this.board.startFullDrag();
             this.board.setEditionMode(drawMode);
+            this.board.startFullDrag();
         });
+
+        this.visualization = new Visualization(this.board);
 
         this.drawMode = HexState.WALL;
 
@@ -42,6 +49,7 @@ public class MainView extends VBox {
     }
 
     public Board getBoard() { return board; }
+    public Visualization getVisualization() { return visualization; }
 
     public void setDrawMode(HexState drawMode) {
         this.drawMode = drawMode;

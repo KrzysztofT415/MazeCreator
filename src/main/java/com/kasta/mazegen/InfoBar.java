@@ -1,5 +1,6 @@
-package com.kasta;
+package com.kasta.mazegen;
 
+import com.kasta.model.HexState;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;

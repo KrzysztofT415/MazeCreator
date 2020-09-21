@@ -1,4 +1,4 @@
-package com.kasta;
+package com.kasta.mazegen;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

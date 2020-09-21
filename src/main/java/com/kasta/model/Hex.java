@@ -1,9 +1,8 @@
-package com.kasta;
+package com.kasta.model;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -14,14 +13,14 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Hex extends Polygon {
+public class Hex extends Polygon implements Cell {
 
     static private final int radius = 25;
     static private final int spacing = 0;
     static private final Rectangle2D screenSize = Screen.getPrimary().getBounds();
     static private final Point2D boardCenter = new Point2D(screenSize.getWidth() * 0.5, screenSize.getHeight() * 0.5);
 
-    static final ArrayList<Pair<Point2D,Integer>> directions = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<Pair<Point2D,Integer>> directions = new ArrayList<>(Arrays.asList(
             new Pair<>(new Point2D(1,0), 0), //E
             new Pair<>(new Point2D(0,1), 1), //S
             new Pair<>(new Point2D(-1,1), 2), //B
@@ -75,11 +74,11 @@ public class Hex extends Polygon {
     boolean compare(int q, int r) {
         return this.coordinates.getX() == q && this.coordinates.getY() == r; }
 
-    void makePassage(int w) { edges[w].setVisible(false); }
+    public void makePassage(int w) { edges[w].setVisible(false); }
 
     Point2D getCenter() { return center; }
-    Point3D getCoordinates() { return coordinates; }
-    Line[] getEdges() { return edges; }
+    public Point3D getCoordinates() { return coordinates; }
+    public Line[] getEdges() { return edges; }
 
     public void setState(HexState state) {
         if (!this.state.isWalls() && state.isWalls()) {
