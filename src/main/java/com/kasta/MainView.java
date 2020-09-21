@@ -1,43 +1,50 @@
 package com.kasta;
 
-import javafx.event.EventType;
-import javafx.scene.control.Button;
+import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Screen;
 
-public class MainView extends HBox {
+public class MainView extends VBox {
 
-    private final Button stepButton, startButton;
+    private final Toolbar toolbar;
     private final Board board;
+    private InfoBar infoBar;
+
+    private HexState drawMode;
 
     public MainView() {
 
-        int width = (int) (Screen.getPrimary().getBounds().getWidth() / (Hex.getRadius() * 2));
-        width = width + width % 2 + 1;
-        int height = (int) (Screen.getPrimary().getBounds().getHeight() / (Hex.getRadius() * Math.sqrt(3)));
-        height = height - height % 2 - 1;
-        this.board = new Board(width, height);
-        this.board.setOnMousePressed(this::handleDraw);
+        this.toolbar = new Toolbar(this);
+        this.board = new Board();
+        this.board.addEventFilter(MouseEvent.DRAG_DETECTED , mouseEvent -> {
+            this.board.startFullDrag();
+            this.board.setEditionMode(drawMode);
+        });
 
-        this.startButton = new Button("start");
-        this.startButton.setOnAction(actionEvent -> this.board.start());
-        this.stepButton = new Button("step");
-        this.stepButton.setOnAction(actionEvent -> this.board.step());
+        this.drawMode = HexState.WALL;
 
-        this.getChildren().addAll(this.startButton, this.stepButton, this.board);
+        this.infoBar = new InfoBar();
+        this.infoBar.setDrawMode(HexState.WALL);
+        this.infoBar.setCursorPosition(0,0);
+
+        Pane spacer = new Pane();
+        spacer.setMinSize(0,0);
+        spacer.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+
+        this.getChildren().addAll(this.toolbar, this.board, spacer , this.infoBar);
         this.setBackground(new Background(new BackgroundFill(Color.rgb(144,224,239), null, null)));
     }
 
-    private void handleDraw(MouseEvent mouseEvent) {
-        for (int x = 0; x < this.board.width; ++x) {
-            for (int y = 0; y < this.board.height; ++y) {
-                this.board.board[x][y].setOnMouseEntered(this.board.board[x][y]::handleDraw);
-            }
-        }
+    private void handleMoved(MouseEvent mouseEvent) {
+    }
+
+    public Board getBoard() { return board; }
+
+    public void setDrawMode(HexState drawMode) {
+        this.drawMode = drawMode;
+        this.infoBar.setDrawMode(drawMode);
     }
 }

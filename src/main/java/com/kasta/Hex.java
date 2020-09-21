@@ -73,8 +73,7 @@ public class Hex extends Polygon {
     }
 
     boolean compare(int q, int r) {
-        return this.coordinates.getX() == q && this.coordinates.getY() == r;
-    }
+        return this.coordinates.getX() == q && this.coordinates.getY() == r; }
 
     void makePassage(int w) { edges[w].setVisible(false); }
 
@@ -87,13 +86,13 @@ public class Hex extends Polygon {
             for (int i = 0; i < 6; ++i) {
                 edges[i].setVisible(true); }
         }
+        if (state == HexState.EMPTY) {
+            for (int i = 0; i < 6; ++i) {
+                edges[i].setVisible(false); }
+        }
         this.state = state;
         setFill(state.getInsideColor());
     }
     public HexState getState() { return state; }
     public static int getRadius() { return radius; }
-
-    public void handleDraw(MouseEvent mouseEvent) {
-        this.setState(HexState.WALL);
-    }
 }

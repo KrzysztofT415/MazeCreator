@@ -1,13 +1,16 @@
 package com.kasta;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Board extends Pane {
+public class Board extends AnchorPane {
 
     int width;
     int height;
@@ -19,9 +22,11 @@ public class Board extends Pane {
 
     Random random = new Random();
 
-    public Board(int width, int height) {
-        this.width = width;
-        this.height = height;
+    public Board() {
+        this.width = (int) (Screen.getPrimary().getBounds().getWidth() * 0.8 / (Hex.getRadius() * 2) + 10);
+        width = width + width % 2 + 1;
+        this.height = (int) (Screen.getPrimary().getBounds().getHeight() * 0.8 / (Hex.getRadius() * Math.sqrt(3)));
+        height = height - height % 2 - 1;
         this.board = new Hex[width][height];
 
         for (int y = 0; y < height; ++y) {
@@ -99,5 +104,13 @@ public class Board extends Pane {
             }
         }
         return null;
+    }
+
+    public void setEditionMode(HexState drawMode) {
+        for (Hex[] row : board) {
+            for (Hex hex : row) {
+                hex.setOnMouseDragEntered((EventHandler<MouseEvent>) event -> hex.setState(drawMode));
+            }
+        }
     }
 }
