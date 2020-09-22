@@ -1,10 +1,9 @@
-package com.kasta.mazegen;
+package com.kasta.mazegen.view;
 
-import com.kasta.model.Board;
-import com.kasta.model.HexState;
-import com.kasta.model.algorithms.KruskalsAlgorithm;
-import com.kasta.model.algorithms.RecursiveBacktrackingAlgorithm;
-import com.kasta.model.Visualization;
+import com.kasta.mazegen.components.infobar.InfoBar;
+import com.kasta.mazegen.model.*;
+import com.kasta.mazegen.model.boards.Board;
+import com.kasta.mazegen.model.boards.SquareBoard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -15,14 +14,14 @@ public class MainView extends VBox {
     private final Board board;
     private final InfoBar infoBar;
 
-    private Visualization visualization;
+    private final Visualization visualization;
 
-    private HexState drawMode;
+    private CellState drawMode;
 
     public MainView() {
 
         this.toolbar = new Toolbar(this);
-        this.board = new Board(this);
+        this.board = new SquareBoard(this);
         this.board.addEventFilter(MouseEvent.DRAG_DETECTED , mouseEvent -> {
             this.board.setEditionMode(drawMode);
             this.board.startFullDrag();
@@ -30,10 +29,10 @@ public class MainView extends VBox {
 
         this.visualization = new Visualization(this.board);
 
-        this.drawMode = HexState.WALL;
+        this.drawMode = CellState.WALL;
 
         this.infoBar = new InfoBar();
-        this.infoBar.setDrawMode(HexState.WALL);
+        this.infoBar.setDrawMode(CellState.WALL);
         this.infoBar.setCursorPosition(0,0);
 
         Pane spacer = new Pane();
@@ -51,7 +50,7 @@ public class MainView extends VBox {
     public Board getBoard() { return board; }
     public Visualization getVisualization() { return visualization; }
 
-    public void setDrawMode(HexState drawMode) {
+    public void setDrawMode(CellState drawMode) {
         this.drawMode = drawMode;
         this.infoBar.setDrawMode(drawMode);
     }

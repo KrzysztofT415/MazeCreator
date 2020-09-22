@@ -1,6 +1,6 @@
-package com.kasta.mazegen;
+package com.kasta.mazegen.components.infobar;
 
-import com.kasta.model.HexState;
+import com.kasta.mazegen.model.CellState;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -8,11 +8,11 @@ import javafx.scene.layout.Priority;
 
 public class InfoBar extends HBox {
 
-    private static String cursorPosFormat = "Cursor : (q:%d, r:%d, s:%d)";
-    private static String drawModeFormat = "Mode : %s";
+    private static final String cursorPosFormat = "Cursor : (q:%d, r:%d, s:%d)";
+    private static final String drawModeFormat = "Mode : %s";
 
-    private Label cursor;
-    private Label editingTool;
+    private final Label cursor;
+    private final Label editingTool;
 
     public InfoBar() {
         this.cursor = new Label();
@@ -26,10 +26,10 @@ public class InfoBar extends HBox {
         this.getChildren().addAll(this.cursor, spacer , this.editingTool);
     }
 
-    public void setDrawMode(HexState drawMode) {
+    public void setDrawMode(CellState drawMode) {
         String drawModeS;
-        if (drawMode == HexState.EMPTY) { drawModeS = "Erasing"; }
-        else if (drawMode == HexState.WALL) { drawModeS = "Drawing"; }
+        if (drawMode == CellState.EMPTY) { drawModeS = "Erasing"; }
+        else if (drawMode == CellState.WALL) { drawModeS = "Drawing"; }
         else { drawModeS = "unknown"; }
         this.editingTool.setText(String.format(drawModeFormat, drawModeS));
     }

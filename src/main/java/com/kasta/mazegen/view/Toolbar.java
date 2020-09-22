@@ -1,16 +1,15 @@
-package com.kasta.mazegen;
+package com.kasta.mazegen.view;
 
-import com.kasta.model.HexState;
-import com.kasta.model.algorithms.KruskalsAlgorithm;
-import com.kasta.model.algorithms.RecursiveBacktrackingAlgorithm;
+import com.kasta.mazegen.model.CellState;
+import com.kasta.mazegen.model.algorithms.KruskalsAlgorithm;
+import com.kasta.mazegen.model.algorithms.RecursiveBacktrackingAlgorithm;
+import com.kasta.mazegen.view.MainView;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -56,7 +55,6 @@ public class Toolbar extends ToolBar {
     }
 
     private void handleTime(Observable observable) {
-        System.out.println("changed to :" + time.getValue());
         this.mainView.getVisualization().setTimeline((int) this.time.getValue());
     }
 
@@ -74,6 +72,6 @@ public class Toolbar extends ToolBar {
     private void handleStart(ActionEvent actionEvent) { this.mainView.getVisualization().start(); }
     private void handleReset(ActionEvent actionEvent) { this.mainView.getVisualization().reset(); }
     private void handleStep(ActionEvent actionEvent) { this.mainView.getVisualization().step(); }
-    private void handleErase(ActionEvent actionEvent) { this.mainView.setDrawMode(HexState.EMPTY); }
-    private void handleDraw(ActionEvent actionEvent) { this.mainView.setDrawMode(HexState.WALL); }
+    private void handleErase(ActionEvent actionEvent) { this.mainView.setDrawMode(CellState.EMPTY); }
+    private void handleDraw(ActionEvent actionEvent) { this.mainView.setDrawMode(CellState.WALL); }
 }

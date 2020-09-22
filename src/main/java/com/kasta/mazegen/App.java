@@ -1,5 +1,6 @@
 package com.kasta.mazegen;
 
+import com.kasta.mazegen.view.MainView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Screen;

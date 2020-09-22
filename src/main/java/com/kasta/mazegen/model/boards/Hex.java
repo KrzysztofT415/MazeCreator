@@ -1,9 +1,10 @@
-package com.kasta.model;
+package com.kasta.mazegen.model.boards;
 
+import com.kasta.mazegen.model.CellState;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
@@ -29,15 +30,15 @@ public class Hex extends Polygon implements Cell {
             new Pair<>(new Point2D(1,-1), 5) //F
     ));
 
-    private final Point3D coordinates;
+    private final Point2D coordinates;
     private final Point2D center;
     private final Point2D[] corners = new Point2D[6];
     private final Line[] edges = new Line[6];
-    private HexState state;
+    private CellState state;
 
-    Hex(int q, int r, Pane root) {
+    Hex(int q, int r, Board root) {
         //Setting cube coordinates
-        coordinates = new Point3D(q, r, - q - r);
+        coordinates = new Point2D(q, r);
 
         //Calculating hex center
         double x = boardCenter.getX() + q * (radius + spacing) * 1.5;
@@ -59,11 +60,11 @@ public class Hex extends Polygon implements Cell {
             edges[i].setStrokeWidth(1);
             edges[i].setStroke(Color.rgb(87,72,56)); }
 
-        state = HexState.EMPTY;
+        state = CellState.EMPTY;
 
         setFill(state.getInsideColor());
-        for (int i = 0; i < 6; ++i) {
-            edges[i].setVisible(state.isWalls()); }
+        for (Line edge : edges) {
+            edge.setVisible(state.isWalls()); }
 
         //Adding to root
         root.getChildren().add(this);
@@ -71,27 +72,39 @@ public class Hex extends Polygon implements Cell {
             root.getChildren().add(line); }
     }
 
-    boolean compare(int q, int r) {
+    @Override
+    public boolean compare(int q, int r) {
         return this.coordinates.getX() == q && this.coordinates.getY() == r; }
 
+    @Override
     public void makePassage(int w) { edges[w].setVisible(false); }
 
-    Point2D getCenter() { return center; }
-    public Point3D getCoordinates() { return coordinates; }
+    @Override
+    public Point2D getCenter() { return center; }
+    @Override
+    public Point2D getCoordinates() { return coordinates; }
+    @Override
     public Line[] getEdges() { return edges; }
 
-    public void setState(HexState state) {
+    @Override
+    public void setState(CellState state) {
         if (!this.state.isWalls() && state.isWalls()) {
             for (int i = 0; i < 6; ++i) {
                 edges[i].setVisible(true); }
         }
-        if (state == HexState.EMPTY) {
+        if (state == CellState.EMPTY) {
             for (int i = 0; i < 6; ++i) {
                 edges[i].setVisible(false); }
         }
         this.state = state;
         setFill(state.getInsideColor());
     }
-    public HexState getState() { return state; }
+    @Override
+    public CellState getState() { return state; }
+
     public static int getRadius() { return radius; }
+
+    public void setVis(boolean visible) { this.setVisible(visible); };
+    public void setOnMouseDragEnter(EventHandler<? super MouseDragEvent> eventHandler) { this.setOnMouseDragEntered(eventHandler); };
+    public void setFil(Color color) { this.setFill(color); };
 }

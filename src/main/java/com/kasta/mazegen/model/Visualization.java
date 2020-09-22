@@ -1,7 +1,8 @@
-package com.kasta.model;
+package com.kasta.mazegen.model;
 
-import com.kasta.model.algorithms.MazeGeneratingAlgorithm;
-import com.kasta.model.algorithms.RecursiveBacktrackingAlgorithm;
+import com.kasta.mazegen.model.algorithms.MazeGeneratingAlgorithm;
+import com.kasta.mazegen.model.algorithms.RecursiveBacktrackingAlgorithm;
+import com.kasta.mazegen.model.boards.Board;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,9 +11,9 @@ import javafx.util.Duration;
 
 public class Visualization {
 
-    private Timeline timeline;
-    private Board board;
-    private HexState[][] initBoard;
+    private final Timeline timeline;
+    private final Board board;
+    private CellState[][] initBoard;
 
     private MazeGeneratingAlgorithm algorithm;
     private boolean initiated = false;

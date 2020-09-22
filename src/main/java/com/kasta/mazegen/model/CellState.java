@@ -1,8 +1,8 @@
-package com.kasta.model;
+package com.kasta.mazegen.model;
 
 import javafx.scene.paint.Color;
 
-public enum HexState {
+public enum CellState {
     EMPTY(Color.rgb(144,224,239), false),
     WALL(Color.rgb(44, 30, 17), true),
     VISITED(Color.rgb(202, 240, 248), true),
@@ -11,7 +11,7 @@ public enum HexState {
     private final Color inside;
     private final boolean walls;
 
-    HexState(Color inside, boolean walls) {
+    CellState(Color inside, boolean walls) {
         this.inside = inside;
         this.walls = walls; }
 
