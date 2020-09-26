@@ -1,13 +1,11 @@
-## Welcome to my project
+## **Welcome to my project**
 
-# Header 1
-## Header 2
-### Header 3
+This is simple javafx application which purpose is to generate mazes in various ways and visualizing this process.
 
-- Bulleted
-- List
+### **Implemented algorithms:**
+- Recursive Backtracking Algorithm
+- Kruskal's Algorithm
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
+### **Board types:**
+- squares
+- hexes
