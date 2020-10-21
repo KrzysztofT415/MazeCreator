@@ -1,6 +1,6 @@
-package com.kasta.mazegen.model.algorithms;
+package com.kasta.maze.model.algorithms;
 
-import com.kasta.mazegen.model.boards.Board;
+import com.kasta.maze.view.boards.Board;
 
 public interface MazeGeneratingAlgorithm {
     void init(Board board);
