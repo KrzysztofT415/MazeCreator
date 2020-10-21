@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.kasta</groupId>
-    <artifactId>mazecreator</artifactId>
+    <artifactId>MazeCreator-App</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,7 +13,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>15</version>
+            <version>14</version>
         </dependency>
     </dependencies>
     <build>
@@ -29,9 +29,9 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.3</version>
                 <configuration>
-                    <mainClass>com.kasta.mazegen.App</mainClass>
+                    <mainClass>com.kasta.App</mainClass>
                 </configuration>
             </plugin>
         </plugins>

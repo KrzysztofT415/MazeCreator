@@ -1,4 +1,4 @@
-package com.kasta.mazegen.model;
+package com.kasta.maze.model;
 
 import javafx.scene.paint.Color;
 
@@ -6,7 +6,8 @@ public enum CellState {
     EMPTY(Color.rgb(144,224,239), false),
     WALL(Color.rgb(44, 30, 17), true),
     VISITED(Color.rgb(202, 240, 248), true),
-    FINISHED(Color.rgb(112,231,255), true);
+    FINISHED(Color.rgb(112,231,255), true),
+    CHOSEN(Color.rgb(162, 191,46, 0.5), true);
 
     private final Color inside;
     private final boolean walls;

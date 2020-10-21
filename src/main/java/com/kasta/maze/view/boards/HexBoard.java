@@ -1,17 +1,18 @@
-package com.kasta.mazegen.model.boards;
+package com.kasta.maze.view.boards;
 
-import com.kasta.mazegen.view.MainView;
+import com.kasta.maze.Log;
+import com.kasta.maze.view.cells.Hex;
 import javafx.geometry.Point2D;
+import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 
 public class HexBoard extends Board {
-    public HexBoard(MainView mainView) {
-        super.setMainView(mainView);
+    public HexBoard(Pane boardPane) {
 
-        super.setW((int) (Screen.getPrimary().getBounds().getWidth() * 0.8 / (Hex.getRadius() * 2) + 10));
+        super.setW((int) ((Screen.getPrimary().getBounds().getWidth() * 0.8 - Log.getWidth()) / (Hex.getRadius() * 2) + 10));
         super.setW(super.getW() + super.getW() % 2 + 1);
         super.setH((int) (Screen.getPrimary().getBounds().getHeight() * 0.8 / (Hex.getRadius() * Math.sqrt(3))));
         super.setH(super.getH() - super.getH() % 2 - 1);
@@ -21,7 +22,7 @@ public class HexBoard extends Board {
             for (int x = 0; x < super.getW(); ++x) {
                 int x2 = x - super.getW() / 2;
                 int y2 = y - super.getH() / 2 - x2 / 2 + (x2 < 0 && -x2 % 2 == 1 ? 1 : 0);
-                super.setCell(x, y, new Hex(x2, y2, this));
+                super.setCell(x, y, new Hex(x, y, x2, y2, boardPane));
             }
         }
     }

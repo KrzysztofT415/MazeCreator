@@ -1,12 +1,14 @@
-package com.kasta.mazegen.model.boards;
+package com.kasta.maze.view.cells;
 
-import com.kasta.mazegen.model.CellState;
+import com.kasta.maze.model.CellPosition;
+import com.kasta.maze.model.CellState;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -29,19 +31,21 @@ public class Square extends Rectangle implements Cell {
             new Pair<>(new Point2D(0,-1), 3) //N
     ));
 
-    private final Point2D coordinates;
+    private final CellPosition coordinates;
+    private final CellPosition gridCoordinates;
     private final Point2D center;
     private final Point2D[] corners = new Point2D[4];
     private final Line[] edges = new Line[4];
     private CellState state;
 
-    Square(int x, int y, Pane root) {
+    public Square(int gridX, int gridY, int q, int r, Pane root) {
         //Setting cube coordinates
-        coordinates = new Point2D(x, y);
+        gridCoordinates = new CellPosition(gridX, gridY);
+        coordinates = new CellPosition(q, r);
 
         //Calculating hex center
-        double x2 = boardCenter.getX() + x * (radius + spacing);
-        double y2 = boardCenter.getY() + y * (radius + spacing);
+        double x2 = boardCenter.getX() + q * (radius + spacing);
+        double y2 = boardCenter.getY() + r * (radius + spacing);
         center = new Point2D(x2, y2);
 
         //Calculating hex corners
@@ -81,12 +85,14 @@ public class Square extends Rectangle implements Cell {
     @Override
     public Point2D getCenter() { return center; }
     @Override
-    public Point2D getCoordinates() { return coordinates; }
+    public CellPosition getCoordinates() { return coordinates; }
+    @Override
+    public CellPosition getGridCoordinates() { return gridCoordinates; }
     @Override
     public Line[] getEdges() { return edges; }
 
     @Override
-    public void setState(CellState state) {
+    public void setState(CellState state, boolean animate) {
         if (!this.state.isWalls() && state.isWalls()) {
             for (int i = 0; i < 4; ++i) {
                 edges[i].setVisible(true); }
@@ -99,7 +105,13 @@ public class Square extends Rectangle implements Cell {
         setFill(state.getInsideColor());
     }
     @Override
+    public Paint getFil() { return this.getFill(); }
+
+    @Override
     public CellState getState() { return state; }
+
+    @Override
+    public boolean contain(int x, int y) { return this.contains(x, y); }
 
     public static int getRadius() { return radius; }
 
